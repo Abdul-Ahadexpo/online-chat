@@ -1,8 +1,9 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.js", // Make sure this is your main server file
   "scripts": {
+    "start": "node index.js", // Add this line to start your server
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
