@@ -17,6 +17,7 @@ body {
 h1 {
   text-align: center;
   color: #333;
+  font-size: 1.5em; /* Adjusted for better scaling */
 }
 
 .message-container {
@@ -36,7 +37,7 @@ h1 {
 }
 
 input[type="text"] {
-  width: calc(100% - 110px);
+  width: calc(100% - 90px); /* Adjusted width for mobile view */
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -49,18 +50,61 @@ button {
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  margin-left: 5px; /* Add spacing between input and button */
 }
 
 button:hover {
   background-color: #0056b3;
 }
+
 .name-prompt {
   text-align: center;
   margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 320px) {
+  .container {
+    padding: 10px; /* Less padding on mobile */
+  }
+  .message-container {
+    height: 200px;
+  }
+  #messageInput {
+    width: 60%;
+  }
+  h1 {
+    font-size: 1.2em; /* Smaller heading for mobile */
+  }
+
+  input[type="text"] {
+    width: calc(100% - 70px); /* Adjust width for smaller screens */
+  }
+
+  button {
+    padding: 10px 15px; /* Slightly smaller button padding */
+  }
+  #sendButton {
+    position: relative;
+    left: 180px;
+    top: -34px;
+  }
+  .message-container {
+    max-height: 400px; /* Reduce height for mobile */
+  }
 }
 
 #messageContainer,
 #messageInput,
 #sendButton {
   display: none;
+}
+
+#saveNameButton {
+  margin-top: 10px;
+}
+.made-by,
+.made-by a {
+  font-size: 12px;
+  color: #007bff;
 }

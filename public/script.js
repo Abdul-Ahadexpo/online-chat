@@ -44,6 +44,13 @@ function scrollToBottom() {
   messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
+// Function to convert plain URLs into clickable links
+function makeLinksClickable(text) {
+  const urlRegex =
+    /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:*,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  return text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+}
+
 // Listen for chat messages from the server
 socket.on("chat message", (data) => {
   displayMessage(data);
@@ -55,9 +62,9 @@ socket.on("chat message", (data) => {
 function displayMessage(data) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
-  messageDiv.innerHTML = `<b><i>${data.sender}</i></b> : ${data.message}`;
+  const messageWithLinks = makeLinksClickable(data.message); // Convert links
+  messageDiv.innerHTML = `<b><i>${data.sender}</i></b>: ${messageWithLinks}`;
   messageContainer.appendChild(messageDiv);
-  scrollToBottom(); // Ensure new message is scrolled into view
 }
 
 // Save message to local storage

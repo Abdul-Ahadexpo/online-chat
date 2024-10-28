@@ -2,6 +2,7 @@
 <html lang="en">
 <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"
   integrity="sha384-Z3z0lfCll60hcM+ma4sWUG4K1eoc7ogI+qOQiFlqjA4Jifm+nO/Jt5tHKQl5FQ2" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/5fc4420cfa.js" crossorigin="anonymous"></script>
 
 <head>
   <meta charset="UTF-8">
@@ -12,17 +13,17 @@
 
 <body>
   <div class="container">
-    <h1>Online Chat <small>made by Nazim</small></h1>
+    <h1>Online Chat <br> <small><i class="made-by">>'<a href="">made by Nazim</a>'< </i></small></h1>
 
     <!-- Name input field -->
     <div id="namePrompt" class="name-prompt">
-      <input type="text" id="nameInput" placeholder="Enter your name" />
-      <button id="saveNameButton">Save Name</button>
+      <input type="text" id="nameInput" placeholder="Enter a name to use it in Chat" />
+      <button id="saveNameButton">Set Name</button>
     </div>
 
     <div class="message-container" id="messageContainer"></div>
     <input type="text" id="messageInput" placeholder="Type your message..." />
-    <button id="sendButton">Send</button>
+    <button id="sendButton"><i class="fa-regular fa-paper-plane"></i> Send</button>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
