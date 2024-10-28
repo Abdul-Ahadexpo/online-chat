@@ -13,10 +13,18 @@
 <body>
   <div class="container">
     <h1>Online Chat <small>made by Nazim</small></h1>
+
+    <!-- Name input field -->
+    <div id="namePrompt" class="name-prompt">
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <button id="saveNameButton">Save Name</button>
+    </div>
+
     <div class="message-container" id="messageContainer"></div>
     <input type="text" id="messageInput" placeholder="Type your message..." />
     <button id="sendButton">Send</button>
   </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
 </body>

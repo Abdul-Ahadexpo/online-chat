@@ -1,45 +1,81 @@
 const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 const messageContainer = document.getElementById("messageContainer");
+const nameInput = document.getElementById("nameInput");
+const saveNameButton = document.getElementById("saveNameButton");
+const namePrompt = document.getElementById("namePrompt");
 
-// Connect to the Socket.IO server
 const socket = io();
 
-// Function to load messages from local storage
+// Check if username is set in local storage
+let username = localStorage.getItem("username");
+if (username) {
+  enableChat();
+} else {
+  namePrompt.style.display = "block";
+}
+
+// Function to enable chat UI
+function enableChat() {
+  namePrompt.style.display = "none";
+  messageContainer.style.display = "block";
+  messageInput.style.display = "inline-block";
+  sendButton.style.display = "inline-block";
+}
+
+// Save the name and enable chat
+saveNameButton.addEventListener("click", () => {
+  username = nameInput.value.trim();
+  if (username) {
+    localStorage.setItem("username", username);
+    enableChat();
+  }
+});
+
+// Load messages from local storage
 function loadMessages() {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
   messages.forEach((msg) => displayMessage(msg));
+  scrollToBottom();
+}
+
+// Function to scroll to the bottom
+function scrollToBottom() {
+  messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 // Listen for chat messages from the server
-socket.on("chat message", (msg) => {
-  displayMessage(msg);
-  saveMessageToLocalStorage(msg); // Save the message to local storage
+socket.on("chat message", (data) => {
+  displayMessage(data);
+  saveMessageToLocalStorage(data);
+  scrollToBottom();
 });
 
-// Function to display a message
-function displayMessage(message) {
+// Display message with sender's name in italics
+function displayMessage(data) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
-  messageDiv.textContent = message;
+  messageDiv.innerHTML = `<b><i>${data.sender}</i></b> : ${data.message}`;
   messageContainer.appendChild(messageDiv);
+  scrollToBottom(); // Ensure new message is scrolled into view
 }
 
-// Function to save message to local storage
-function saveMessageToLocalStorage(message) {
+// Save message to local storage
+function saveMessageToLocalStorage(data) {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
-  messages.push(message);
+  messages.push(data);
   localStorage.setItem("messages", JSON.stringify(messages));
 }
 
-// Function to send message
+// Send message
 function sendMessage() {
-  const message = messageInput.value;
-  if (message) {
-    socket.emit("chat message", message); // Send message to server
-    displayMessage(message); // Display your own message
-    saveMessageToLocalStorage(message); // Save the message to local storage
-    messageInput.value = ""; // Clear input
+  const message = messageInput.value.trim();
+  if (message && username) {
+    const data = { sender: username, message }; // Include sender name
+    socket.emit("chat message", data); // Send to server, which will handle broadcasting
+    saveMessageToLocalStorage(data); // Save to local storage
+    messageInput.value = ""; // Clear the input field
+    scrollToBottom();
   }
 }
 
