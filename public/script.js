@@ -8,6 +8,7 @@ const colorPicker = document.getElementById("colorPicker"); // New color picker 
 const roomInput = document.getElementById("roomInput"); // Room input
 const roomButton = document.getElementById("roomButton"); // Room button
 const currentRoomDisplay = document.getElementById("currentRoomDisplay"); // Display for current room
+const changeNameButton = document.getElementById("changeNameButton"); // Change name button
 
 const socket = io();
 
@@ -29,6 +30,7 @@ function enableChat() {
   messageInput.style.display = "inline-block";
   sendButton.style.display = "inline-block";
   currentRoomDisplay.textContent = `Current Room: ${currentRoom}`; // Display current room
+  changeNameButton.style.display = "block"; // Show change name button
   socket.emit("join room", currentRoom); // Join the default room
 }
 
@@ -100,9 +102,9 @@ function displayMessage(data) {
     <b><i style="color: ${data.color};">${
     data.sender
   }</i></b>: ${messageWithLinks} 
-    <i class="absolute bottom-0 right-2 text-[10px] text-lime-200">${
+    <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
       data.time || new Date().toLocaleTimeString()
-    } <br>By ${data.sender}</i>
+    }</i>
   `;
 
   messageContainer.appendChild(messageDiv);
@@ -141,6 +143,15 @@ messageInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     sendMessage();
   }
+});
+
+// Show name prompt to change the name
+changeNameButton.addEventListener("click", () => {
+  namePrompt.style.display = "block";
+  messageContainer.style.display = "none";
+  messageInput.style.display = "none";
+  sendButton.style.display = "none";
+  changeNameButton.style.display = "none"; // Hide change name button during the name change
 });
 
 // Load messages from local storage when the page loads

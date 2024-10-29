@@ -52,6 +52,17 @@
       background-color: #e3f2fd;
       padding: 10px;
       margin: 5px 0;
+      position: relative;
+      /* Ensures that the time can be positioned absolutely */
+      padding: 10px !important;
+
+    }
+
+    .time {
+      background-color: #003b532f;
+      font-weight: 600;
+      text-align: center;
+      overflow: hidden;
     }
 
     input[type="text"] {
@@ -134,7 +145,7 @@
     @media only screen and (max-width: 360px) {
       .message-container {
         height: 200px;
-        width: 104%;
+        width: 110%;
         margin: 0 auto;
         align-self: center;
       }
@@ -142,7 +153,7 @@
       .message {
         background-color: #ffffff1c;
         border-radius: 25px 25px 25px 0px;
-        overflow: hidden;
+
         /* Hide any overflow */
         word-wrap: break-word;
         /* Allow long words to break */
@@ -182,6 +193,10 @@
     <small class="text-sm text-gray-400">><a href="https://www.facebook.com/Nazim.Natsuo"
         class="text-gray-300 hover:text-gray-200">made by Nazim</a>
       < </small>
+        <button id="changeNameButton"
+          class="mt-2 w-full bg-blue-500 hover:bg-blue-400 text-white p-2 rounded transition">
+          Change Name
+        </button>
 
         <!-- Name input field -->
         <div id="namePrompt" class="mt-4">
