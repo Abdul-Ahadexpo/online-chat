@@ -88,15 +88,22 @@ socket.on("chat message", (data) => {
   }
 });
 
-// Display message with sender's name in italics and color
+// Display message with sender's name in italics, color, and time
 function displayMessage(data) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
 
   const messageWithLinks = makeLinksClickable(data.message); // Convert links
 
-  // Apply the color to the sender's name
-  messageDiv.innerHTML = `<b><i style="color: ${data.color};">${data.sender}</i></b>: ${messageWithLinks}`;
+  // Apply the color to the sender's name and include the time
+  messageDiv.innerHTML = `
+    <b><i style="color: ${data.color};">${
+    data.sender
+  }</i></b>: ${messageWithLinks} 
+    <i class="absolute bottom-0 right-2 text-[10px] text-lime-200">${
+      data.time || new Date().toLocaleTimeString()
+    } <br>By ${data.sender}</i>
+  `;
 
   messageContainer.appendChild(messageDiv);
 }
@@ -117,8 +124,9 @@ function sendMessage() {
       message,
       color: userColor,
       room: currentRoom,
-    }; // Include sender name, color, and room
-    socket.emit("chat message", data); // Send to server, which will handle broadcasting
+      time: new Date().toLocaleTimeString(), // Add the current time
+    }; // Include sender name, color, room, and time
+    socket.emit("chat message", data); // Send to server
     saveMessageToLocalStorage(data); // Save to local storage
     messageInput.value = ""; // Clear the input field
     scrollToBottom();
