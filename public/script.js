@@ -4,11 +4,14 @@ const messageContainer = document.getElementById("messageContainer");
 const nameInput = document.getElementById("nameInput");
 const saveNameButton = document.getElementById("saveNameButton");
 const namePrompt = document.getElementById("namePrompt");
+const colorPicker = document.getElementById("colorPicker"); // New color picker input
 
 const socket = io();
 
-// Check if username is set in local storage
+// Check if username and color are set in local storage
 let username = localStorage.getItem("username");
+let userColor = localStorage.getItem("userColor") || "#000000"; // Default to black if no color is chosen
+
 if (username) {
   enableChat();
 } else {
@@ -23,11 +26,13 @@ function enableChat() {
   sendButton.style.display = "inline-block";
 }
 
-// Save the name and enable chat
+// Save the name and color, and enable chat
 saveNameButton.addEventListener("click", () => {
   username = nameInput.value.trim();
+  userColor = colorPicker.value; // Get the selected color
   if (username) {
     localStorage.setItem("username", username);
+    localStorage.setItem("userColor", userColor); // Save color to localStorage
     enableChat();
   }
 });
@@ -58,12 +63,16 @@ socket.on("chat message", (data) => {
   scrollToBottom();
 });
 
-// Display message with sender's name in italics
+// Display message with sender's name in italics and color
 function displayMessage(data) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
+
   const messageWithLinks = makeLinksClickable(data.message); // Convert links
-  messageDiv.innerHTML = `<b><i>${data.sender}</i></b>: ${messageWithLinks}`;
+
+  // Apply the color to the sender's name
+  messageDiv.innerHTML = `<b><i style="color: ${data.color};">${data.sender}</i></b>: ${messageWithLinks}`;
+
   messageContainer.appendChild(messageDiv);
 }
 
@@ -78,7 +87,7 @@ function saveMessageToLocalStorage(data) {
 function sendMessage() {
   const message = messageInput.value.trim();
   if (message && username) {
-    const data = { sender: username, message }; // Include sender name
+    const data = { sender: username, message, color: userColor }; // Include sender name and color
     socket.emit("chat message", data); // Send to server, which will handle broadcasting
     saveMessageToLocalStorage(data); // Save to local storage
     messageInput.value = ""; // Clear the input field
@@ -88,6 +97,13 @@ function sendMessage() {
 
 // Send message on button click
 sendButton.addEventListener("click", sendMessage);
+
+// Send message on Enter key press
+messageInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
 
 // Load messages from local storage when the page loads
 loadMessages();
