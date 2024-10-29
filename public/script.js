@@ -9,8 +9,9 @@ const roomInput = document.getElementById("roomInput");
 const roomButton = document.getElementById("roomButton");
 const currentRoomDisplay = document.getElementById("currentRoomDisplay");
 const changeNameButton = document.getElementById("changeNameButton");
-
-const recordButton = document.getElementById("recordButton"); // New button for audio recording
+const fileInput = document.getElementById("fileInput"); // New input for files
+const sendFileButton = document.getElementById("sendFileButton"); // New button for sending files
+const recordButton = document.getElementById("recordButton"); // Button for audio recording
 let mediaRecorder;
 let audioChunks = [];
 
@@ -64,16 +65,18 @@ function loadMessages() {
     if (msg.room === currentRoom) {
       if (msg.audio) {
         displayAudioMessage(msg);
+      } else if (msg.fileData) {
+        displayFileMessage(msg);
       } else {
         displayMessage(msg);
       }
     }
   });
-  scrollToBottom();
+  scrollToBottom(); // Ensure the latest messages are visible
 }
 
 function scrollToBottom() {
-  messageContainer.scrollTop = messageContainer.scrollHeight;
+  messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
 }
 
 function makeLinksClickable(text) {
@@ -86,6 +89,8 @@ socket.on("chat message", (data) => {
   if (data.room === currentRoom) {
     if (data.audio) {
       displayAudioMessage(data);
+    } else if (data.fileData) {
+      displayFileMessage(data);
     } else {
       displayMessage(data);
     }
@@ -127,6 +132,36 @@ function displayAudioMessage(data) {
     }</i>
   `;
   messageDiv.appendChild(audioElement);
+
+  messageContainer.appendChild(messageDiv);
+}
+
+function displayFileMessage(data) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message");
+
+  if (data.fileType.startsWith("image/")) {
+    messageDiv.innerHTML = `
+      <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
+      <img src="${
+        data.fileData
+      }" alt="Image" style="max-width: 200px; max-height: 200px;">
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
+        data.time || new Date().toLocaleTimeString()
+      }</i>
+    `;
+  } else if (data.fileType.startsWith("video/")) {
+    messageDiv.innerHTML = `
+      <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
+      <video controls style="max-width: 200px; max-height: 200px;">
+        <source src="${data.fileData}" type="${data.fileType}">
+        Your browser does not support the video tag.
+      </video>
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
+        data.time || new Date().toLocaleTimeString()
+      }</i>
+    `;
+  }
 
   messageContainer.appendChild(messageDiv);
 }
@@ -207,7 +242,7 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
-  recordButton.textContent = "🎙️ send Voice";
+  recordButton.textContent = "🎙️ Send Voice";
 }
 
 function sendAudioMessage(base64Audio) {
@@ -221,4 +256,27 @@ function sendAudioMessage(base64Audio) {
   socket.emit("chat message", data);
 }
 
-loadMessages();
+// Handle file sending
+sendFileButton.addEventListener("click", () => {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = {
+        sender: username,
+        fileData: reader.result, // Encoded file data
+        fileType: file.type,
+        color: userColor,
+        room: currentRoom,
+        time: new Date().toLocaleTimeString(),
+      };
+      socket.emit("chat message", data);
+      saveMessageToLocalStorage(data);
+      fileInput.value = ""; // Clear the input
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// Load messages when the page is loaded
+window.addEventListener("load", loadMessages);
