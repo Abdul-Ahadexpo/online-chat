@@ -259,7 +259,16 @@ function sendAudioMessage(base64Audio) {
 // Handle file sending
 sendFileButton.addEventListener("click", () => {
   const file = fileInput.files[0];
+
+  // Check if a file is selected and its size is under 800 KB
   if (file) {
+    if (file.size > 800 * 1024) {
+      // 800 KB in bytes
+      alert("Please select a file smaller than 800 KB.");
+      fileInput.value = ""; // Clear the input
+      return; // Exit the function
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       const data = {
@@ -274,6 +283,7 @@ sendFileButton.addEventListener("click", () => {
       saveMessageToLocalStorage(data);
       fileInput.value = ""; // Clear the input
     };
+
     reader.readAsDataURL(file);
   }
 });
