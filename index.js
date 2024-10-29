@@ -13,10 +13,25 @@ app.use(express.static("public"));
 io.on("connection", (socket) => {
   console.log("A user connected");
 
+  // Join the default room
+  socket.join("General");
+
+  // Listen for room joining
+  socket.on("join room", (room) => {
+    socket.join(room);
+    console.log(`User joined room: ${room}`);
+  });
+
+  // Handle leaving a room
+  socket.on("leave room", (room) => {
+    socket.leave(room);
+    console.log(`User left room: ${room}`);
+  });
+
   // Listen for chat messages
   socket.on("chat message", (data) => {
-    // Broadcast message and sender's name to all clients
-    io.emit("chat message", data);
+    // Broadcast message and sender's name to clients in the same room
+    io.to(data.room).emit("chat message", data);
   });
 
   // Handle disconnection

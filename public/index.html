@@ -17,11 +17,18 @@
 
     <!-- Name input field -->
     <div id="namePrompt" class="name-prompt">
-      <input type="text" id="nameInput" placeholder="Enter a name to use it in Chat" /><br> <i>set name color</i>
+      <input type="text" id="nameInput" placeholder="Enter a name to use it in Chat" /><br>
+      <i>set name color</i>
       <input type="color" id="colorPicker" value="#000000" /> <!-- Default color: black -->
       <button id="saveNameButton">Set Name</button>
     </div>
 
+    <!-- Room input field -->
+    <div class="room-prompt">
+      <input type="text" id="roomInput" placeholder="Enter room name..." />
+      <button id="roomButton">Join Room</button>
+      <div id="currentRoomDisplay">Current Room: World Chat</div> <!-- Display for current room -->
+    </div>
 
     <div class="message-container" id="messageContainer"></div>
     <input type="text" id="messageInput" placeholder="Type your message..." />

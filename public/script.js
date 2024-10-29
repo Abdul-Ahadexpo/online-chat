@@ -5,12 +5,16 @@ const nameInput = document.getElementById("nameInput");
 const saveNameButton = document.getElementById("saveNameButton");
 const namePrompt = document.getElementById("namePrompt");
 const colorPicker = document.getElementById("colorPicker"); // New color picker input
+const roomInput = document.getElementById("roomInput"); // Room input
+const roomButton = document.getElementById("roomButton"); // Room button
+const currentRoomDisplay = document.getElementById("currentRoomDisplay"); // Display for current room
 
 const socket = io();
 
 // Check if username and color are set in local storage
 let username = localStorage.getItem("username");
 let userColor = localStorage.getItem("userColor") || "#000000"; // Default to black if no color is chosen
+let currentRoom = localStorage.getItem("currentRoom") || "World Chat"; // Default room
 
 if (username) {
   enableChat();
@@ -24,6 +28,8 @@ function enableChat() {
   messageContainer.style.display = "block";
   messageInput.style.display = "inline-block";
   sendButton.style.display = "inline-block";
+  currentRoomDisplay.textContent = `Current Room: ${currentRoom}`; // Display current room
+  socket.emit("join room", currentRoom); // Join the default room
 }
 
 // Save the name and color, and enable chat
@@ -37,10 +43,27 @@ saveNameButton.addEventListener("click", () => {
   }
 });
 
+// Room change functionality
+roomButton.addEventListener("click", () => {
+  const roomName = roomInput.value.trim();
+  if (roomName) {
+    socket.emit("leave room", currentRoom); // Leave the current room
+    currentRoom = roomName;
+    localStorage.setItem("currentRoom", currentRoom); // Save current room to localStorage
+    currentRoomDisplay.textContent = `Current Room: ${currentRoom}`; // Update displayed room
+    socket.emit("join room", currentRoom); // Join the new room
+    messageContainer.innerHTML = ""; // Clear messages for the new room
+  }
+});
+
 // Load messages from local storage
 function loadMessages() {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
-  messages.forEach((msg) => displayMessage(msg));
+  messages.forEach((msg) => {
+    if (msg.room === currentRoom) {
+      displayMessage(msg);
+    }
+  });
   scrollToBottom();
 }
 
@@ -58,9 +81,11 @@ function makeLinksClickable(text) {
 
 // Listen for chat messages from the server
 socket.on("chat message", (data) => {
-  displayMessage(data);
-  saveMessageToLocalStorage(data);
-  scrollToBottom();
+  if (data.room === currentRoom) {
+    displayMessage(data);
+    saveMessageToLocalStorage(data);
+    scrollToBottom();
+  }
 });
 
 // Display message with sender's name in italics and color
@@ -87,7 +112,12 @@ function saveMessageToLocalStorage(data) {
 function sendMessage() {
   const message = messageInput.value.trim();
   if (message && username) {
-    const data = { sender: username, message, color: userColor }; // Include sender name and color
+    const data = {
+      sender: username,
+      message,
+      color: userColor,
+      room: currentRoom,
+    }; // Include sender name, color, and room
     socket.emit("chat message", data); // Send to server, which will handle broadcasting
     saveMessageToLocalStorage(data); // Save to local storage
     messageInput.value = ""; // Clear the input field
