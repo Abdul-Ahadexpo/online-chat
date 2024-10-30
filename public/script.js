@@ -8,10 +8,11 @@ const colorPicker = document.getElementById("colorPicker");
 const roomInput = document.getElementById("roomInput");
 const roomButton = document.getElementById("roomButton");
 const currentRoomDisplay = document.getElementById("currentRoomDisplay");
+const onlineUsersDisplay = document.getElementById("onlineUsersDisplay"); // New element for total users display
 const changeNameButton = document.getElementById("changeNameButton");
-const fileInput = document.getElementById("fileInput"); // New input for files
-const sendFileButton = document.getElementById("sendFileButton"); // New button for sending files
-const recordButton = document.getElementById("recordButton"); // Button for audio recording
+const fileInput = document.getElementById("fileInput");
+const sendFileButton = document.getElementById("sendFileButton");
+const recordButton = document.getElementById("recordButton");
 let mediaRecorder;
 let audioChunks = [];
 
@@ -34,7 +35,7 @@ function enableChat() {
   sendButton.style.display = "inline-block";
   currentRoomDisplay.textContent = `Current Room: ${currentRoom}`;
   changeNameButton.style.display = "block";
-  socket.emit("join room", currentRoom);
+  socket.emit("join room", currentRoom, username);
 }
 
 saveNameButton.addEventListener("click", () => {
@@ -47,6 +48,12 @@ saveNameButton.addEventListener("click", () => {
   }
 });
 
+// Listen for total users update
+socket.on("update online users", (totalUsers) => {
+  onlineUsersDisplay.textContent = `Online Users: ${totalUsers}`; // Update total users display
+});
+
+// Room button click handler
 roomButton.addEventListener("click", () => {
   const roomName = roomInput.value.trim();
   if (roomName) {
@@ -54,10 +61,13 @@ roomButton.addEventListener("click", () => {
     currentRoom = roomName;
     localStorage.setItem("currentRoom", currentRoom);
     currentRoomDisplay.textContent = `Current Room: ${currentRoom}`;
-    socket.emit("join room", currentRoom);
+
+    socket.emit("join room", currentRoom, username);
     messageContainer.innerHTML = "";
   }
 });
+
+// (Rest of the script.js remains unchanged)
 
 function loadMessages() {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
@@ -263,10 +273,9 @@ sendFileButton.addEventListener("click", () => {
   // Check if a file is selected and its size is under 800 KB
   if (file) {
     if (file.size > 800 * 1024) {
-      // 800 KB in bytes
       alert("Please select a file smaller than 800 KB.");
-      fileInput.value = ""; // Clear the input
-      return; // Exit the function
+      fileInput.value = ""; // Clear input if size exceeds limit
+      return;
     }
 
     const reader = new FileReader();

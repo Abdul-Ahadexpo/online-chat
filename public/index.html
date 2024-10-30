@@ -142,18 +142,23 @@
       }
     }
 
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 420px) {
       .message-container {
-        height: 200px;
-        width: 110%;
+        height: 110%;
+        width: 100%;
         margin: 0 auto;
         align-self: center;
+      }
+
+      .down-container {
+        padding-bottom: 150px;
       }
 
       .message {
         background-color: #ffffff1c;
         border-radius: 25px 25px 25px 0px;
-
+        /* width: 100vh; */
+        overflow-x: auto;
         /* Hide any overflow */
         word-wrap: break-word;
         /* Allow long words to break */
@@ -161,7 +166,23 @@
         /* Optional: Limit the width of messages */
       }
 
+      #whole-container {
+        scale: 100% !important;
+      }
+
+      .container {
+        overflow: visible;
+      }
     }
+
+    .down-container {
+      padding-bottom: 80px;
+    }
+
+    #whole-container {
+      scale: 104%;
+    }
+
 
     #messageContainer,
     #messageInput,
@@ -182,7 +203,7 @@
 </head>
 
 <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
-  <div class="container bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+  <div id="whole-container" class="container bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
 
     <h1 class="text-2xl font-bold text-emerald-400 flex justify-between items-center">
       Online Chat
@@ -219,11 +240,13 @@
           <div id="currentRoomDisplay" class="mt-2 text-center">Current Room: <span class="text-emerald-300">World
               Chat</span></div> <!-- Display for current room -->
         </div>
-
+        <!-- Online Users Section -->
+        <div id="currentRoomDisplay">Current Room: General</div>
+        <div id="onlineUsersDisplay">Online Users: 0</div> <!-- New element to display total users -->
         <div class="message-container mt-4 max-h-64 overflow-auto border border-gray-600 rounded p-2"
           id="messageContainer"></div>
 
-        <div class="mt-4">
+        <div class="mt-4 down-container">
           <input type="text" id="messageInput" placeholder="Type your message..."
             class="w-full p-2 rounded bg-gray-700 placeholder-gray-500 text-white" />
 
