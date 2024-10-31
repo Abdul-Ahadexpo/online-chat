@@ -34,8 +34,14 @@ function initializeServer() {
 
       // Notify everyone about all users on the site with their room names
       io.emit("update online users", Object.values(users));
+
+      const roomUsers = Object.values(users).filter(
+        (user) => user.room === room
+      );
+      io.to(room).emit("update online users", roomUsers);
     });
 
+    // Send the current users in the "General" room
     const roomUsers = Object.values(users).filter(
       (user) => user.room === "General"
     );
