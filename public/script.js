@@ -262,7 +262,7 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
-  recordButton.textContent = "<i class="fa-solid fa-microphone"></i> Start";
+  recordButton.textContent = "🎤 Start";
 }
 
 function sendAudioMessage(base64Audio) {
