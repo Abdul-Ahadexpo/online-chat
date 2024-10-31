@@ -186,6 +186,57 @@ function displayFileMessage(data) {
   messageContainer.appendChild(messageDiv);
 }
 
+function replaceEmoticons(text) {
+  const emoticons = {
+    ":)": "🙂",
+    "B-)": "😎",
+    ":(": "🙁",
+    ToT: "😭",
+    "-_-": "😑",
+    ":p": "😋",
+    nln: "🖕",
+    fuck: "🖕",
+    Fuck: "I love you",
+    nigga: "🧑🏿",
+    Nigga: "🧑🏿",
+    Breakup: "💔",
+    breakup: "💔",
+    sex: "🔞",
+    Sex: "🔞",
+    SEx: "🔞",
+    SeX: "🔞",
+    SEX: "🔞",
+    sEx: "🔞",
+    sEX: "🔞",
+    King: "♛",
+    shit: "💩",
+  };
+
+  return text.replace(
+    /shit|Breakup|breakup|King|sEX|sEx|seX|SeX|SEX|SEx|Sex|sex|Fuck|fuck|Nigga|nigga|nln|-_-|:\)|B-\)|:\(|ToT/g,
+    (match) => emoticons[match]
+  );
+}
+
+function displayMessage(data) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message");
+
+  const messageWithEmojis = replaceEmoticons(data.message);
+  const messageWithLinks = makeLinksClickable(messageWithEmojis);
+
+  messageDiv.innerHTML = `
+    <b><i style="color: ${data.color};">${
+    data.sender
+  }</i></b>: ${messageWithLinks} 
+    <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
+      data.time || new Date().toLocaleTimeString()
+    }</i>
+  `;
+
+  messageContainer.appendChild(messageDiv);
+}
+
 function saveMessageToLocalStorage(data) {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
   messages.push(data);
@@ -255,7 +306,7 @@ function startRecording() {
       };
 
       mediaRecorder.start();
-      recordButton.textContent = "⏹️ Stop and Send";
+      recordButton.textContent = "⏹️ Stop Recording";
     })
     .catch((error) => console.error("Error accessing microphone:", error));
 }
