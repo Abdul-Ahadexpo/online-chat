@@ -255,14 +255,14 @@ function startRecording() {
       };
 
       mediaRecorder.start();
-      recordButton.textContent = "⏹️ Stop Recording";
+      recordButton.textContent = "⏹️ Stop and Send";
     })
     .catch((error) => console.error("Error accessing microphone:", error));
 }
 
 function stopRecording() {
   mediaRecorder.stop();
-  recordButton.textContent = "🎙️ Send Voice";
+  recordButton.textContent = "<i class="fa-solid fa-microphone"></i> Start";
 }
 
 function sendAudioMessage(base64Audio) {
