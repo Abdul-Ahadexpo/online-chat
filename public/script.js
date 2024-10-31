@@ -59,7 +59,7 @@ socket.on("update online users", (users) => {
 
   users.forEach((user) => {
     const userItem = document.createElement("div");
-    userItem.textContent = `${user.username} - Room: ${user.room}`; // Display username and room
+    userItem.textContent = `${user.username} - is in Room: ${user.room}`; // Display username and room
     onlineUsersContainer.appendChild(userItem);
   });
 });
