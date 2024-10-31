@@ -9,6 +9,8 @@ const roomInput = document.getElementById("roomInput");
 const roomButton = document.getElementById("roomButton");
 const currentRoomDisplay = document.getElementById("currentRoomDisplay");
 const onlineUsersDisplay = document.getElementById("onlineUsersDisplay"); // New element for total users display
+const onlineUsersContainer = document.getElementById("onlineUsersContainer");
+
 const changeNameButton = document.getElementById("changeNameButton");
 const fileInput = document.getElementById("fileInput");
 const sendFileButton = document.getElementById("sendFileButton");
@@ -52,7 +54,15 @@ saveNameButton.addEventListener("click", () => {
 socket.on("update online users", (totalUsers) => {
   onlineUsersDisplay.textContent = `Online Users: ${totalUsers}`; // Update total users display
 });
+socket.on("update online users", (users) => {
+  onlineUsersContainer.innerHTML = ""; // Clear the container first
 
+  users.forEach((user) => {
+    const userItem = document.createElement("div");
+    userItem.textContent = `${user.username} - Room: ${user.room}`; // Display username and room
+    onlineUsersContainer.appendChild(userItem);
+  });
+});
 // Room button click handler
 roomButton.addEventListener("click", () => {
   const roomName = roomInput.value.trim();
