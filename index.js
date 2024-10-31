@@ -23,6 +23,12 @@ function initializeServer() {
     // Join the default room
     socket.join("General");
 
+    // Send the current users in the "General" room
+    const roomUsers = Object.values(users).filter(
+      (user) => user.room === "General"
+    );
+    io.to("General").emit("update online users", roomUsers);
+
     // Listen for user joining a room
     socket.on("join room", (room, username = "") => {
       if (!username) {
@@ -40,12 +46,6 @@ function initializeServer() {
       );
       io.to(room).emit("update online users", roomUsers);
     });
-
-    // Send the current users in the "General" room
-    const roomUsers = Object.values(users).filter(
-      (user) => user.room === "General"
-    );
-    io.to("General").emit("update online users", roomUsers);
 
     // Listen for user leaving a room
     socket.on("leave room", (room) => {
@@ -78,7 +78,6 @@ function initializeServer() {
         // Notify everyone about all users on the site with their room names
         io.emit("update online users", Object.values(users));
       }
-
       console.log(`${username} disconnected`);
     });
   });
