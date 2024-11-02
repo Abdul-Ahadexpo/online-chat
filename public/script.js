@@ -213,7 +213,7 @@ function replaceEmoticons(text) {
   };
 
   return text.replace(
-    /shit|Breakup|breakup|King|sEX|sEx|seX|SeX|SEX|SEx|Sex|sex|Fuck|fuck|Nigga|nigga|nln|-_-|:\)|B-\)|:\(|ToT/g,
+    /:p|shit|Breakup|breakup|King|sEX|sEx|seX|SeX|SEX|SEx|Sex|sex|Fuck|fuck|Nigga|nigga|nln|-_-|:\)|B-\)|:\(|ToT/g,
     (match) => emoticons[match]
   );
 }
