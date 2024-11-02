@@ -313,8 +313,9 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
-  recordButton.textContent = "🎤 Start";
+  recordButton.innerHTML = `<i class="fa-solid fa-microphone"></i> Start`;
 }
+
 
 function sendAudioMessage(base64Audio) {
   const data = {
