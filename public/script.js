@@ -125,14 +125,23 @@ function displayMessage(data) {
 
   const messageWithLinks = makeLinksClickable(data.message);
 
-  messageDiv.innerHTML = `
-    <b><i style="color: ${data.color};">${
-    data.sender
-  }</i></b>: ${messageWithLinks} 
-    <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
-      data.time || new Date().toLocaleTimeString()
-    }</i>
-  `;
+ // Message display
+messageDiv.innerHTML = `
+  <div class="chat chat-start">
+    <div class="chat-image avatar">
+      <div class="w-10 rounded-full">
+        <!-- Add sender's avatar here if needed -->
+      </div>
+    </div>
+    <div class="chat-bubble">
+      <b><i style="color: ${data.color};">${data.sender}</i></b>: ${messageWithLinks}
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
+        data.time || new Date().toLocaleTimeString()
+      }</i>
+    </div>
+  </div>
+`;
+
 
   messageContainer.appendChild(messageDiv);
 }
