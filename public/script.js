@@ -130,14 +130,15 @@ messageDiv.innerHTML = `
   <div class="chat chat-start">
     <div class="chat-image avatar">
       <div class="w-10 rounded-full">
-        <!-- Add sender's avatar here if needed -->
+        <!-- Optional: Add an avatar image here -->
       </div>
     </div>
     <div class="chat-bubble">
-      <b><i style="color: ${data.color};">${data.sender}</i></b>: ${messageWithLinks}
-      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
+      ${messageWithLinks}
+      <span style="color: ${data.color}; font-weight: bold;"><i>${data.sender}</i></span>
+      <span class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
         data.time || new Date().toLocaleTimeString()
-      }</i>
+      }</span>
     </div>
   </div>
 `;
