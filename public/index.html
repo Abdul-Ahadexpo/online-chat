@@ -99,50 +99,51 @@
 
 
 
-    .message {
-      cursor: pointer;
-      background: #17aaff;
-      color: #ffffff;
-      border-radius: 20px 20px 20px 3px;
-      display: block;
-      max-width: 98%;
-      padding: 7px 80px 7px 13px !important;
-      position: absolute;
-      left: 0;
-      font-size: 16.8px;
-      position: relative;
-      word-wrap: break-word;
+  /* Message component */
+.message {
+  cursor: pointer;
+  background: linear-gradient(135deg, #17aaff, #1e90ff);
+  color: #fff;
+  border-radius: 12px;
+  display: block;
+  max-width: 98%;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  word-wrap: break-word;
+  position: relative;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
 
+/* Hover effect */
+.message:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #1e90ff, #1c75f5);
+}
 
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-      color: #fffcfc;
-      /* White text for contrast */
-    }
+/* Subtle animation */
+.message {
+  animation: fadeIn 0.8s ease-in-out;
+}
 
-    /* Add Hover Effect */
-    .message:hover {
-      transform: scale(1.02);
-      /* Slight scaling */
-      box-shadow: 0 10px 25px rgba(43, 83, 49, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.5);
-    }
+/* Keyframes for Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    /* Add Subtle Animation */
-    .message {
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    /* Keyframes for Fade-in Animation */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
 
 
