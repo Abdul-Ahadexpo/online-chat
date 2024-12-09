@@ -102,8 +102,10 @@ function scrollToBottom() {
 function makeLinksClickable(text) {
   const urlRegex =
     /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:*,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-  return text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+
+  return text.replace(urlRegex, '<a href="$1" target="_blank" class="message-link">$1</a>');
 }
+
 
 socket.on("chat message", (data) => {
   if (data.room === currentRoom) {
