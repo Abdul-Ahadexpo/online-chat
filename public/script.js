@@ -206,8 +206,8 @@ function replaceEmoticons(text) {
     ToT: "😭",
     "-_-": "😑",
     ":p": "😋",
-    nln: "🖕",
-    fuck: "🖕",
+    fork: "🖕",
+    fuck: "I love you",
     Fuck: "I love you",
     nigga: "🧑🏿",
     Nigga: "🧑🏿",
@@ -225,7 +225,7 @@ function replaceEmoticons(text) {
   };
 
   return text.replace(
-    /:p|shit|Breakup|breakup|King|sEX|sEx|seX|SeX|SEX|SEx|Sex|sex|Fuck|fuck|Nigga|nigga|nln|-_-|:\)|B-\)|:\(|ToT/g,
+    /:p|shit|Breakup|breakup|King|sEX|sEx|seX|SeX|SEX|SEx|Sex|sex|Fuck|fuck|Nigga|nigga|fork|-_-|:\)|B-\)|:\(|ToT/g,
     (match) => emoticons[match]
   );
 }
