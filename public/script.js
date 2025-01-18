@@ -175,9 +175,8 @@ function displayFileMessage(data) {
   if (data.fileType.startsWith("image/")) {
     messageDiv.innerHTML = `
       <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
-      <img src="${
-        data.fileData
-      }" alt="Image" style="max-width: 200px; max-height: 200px;">
+     <img src="${data.fileData}" alt="Image" class="rounded-xl shadow-lg object-contain max-w-full max-h-[500px]" style="max-width: 100%; max-height: 500px;">
+
       <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
         data.time || new Date().toLocaleTimeString()
       }</i>
