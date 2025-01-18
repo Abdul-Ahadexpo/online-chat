@@ -170,10 +170,6 @@ function displayAudioMessage(data) {
 
   messageContainer.appendChild(messageDiv);
 }
-
-
-
-
 // ;;
 // ;;
 // ;;
@@ -233,12 +229,6 @@ function displayFileMessage(data) {
 // ;;
 // ;;
 // ;;
-
-
-
-
-  messageContainer.appendChild(messageDiv);
-}
 
 function replaceEmoticons(text) {
   const emoticons = {
