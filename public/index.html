@@ -434,23 +434,62 @@
           id="messageContainer"></div>
     
 
-        <div class="mt-4 down-container">
-          <input type="text" id="messageInput" placeholder="Type your message..."
-            class="w-full p-2 rounded bg-gray-700 placeholder-gray-500 text-white" />
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
 
-          <button id="sendButton"
-            class="mt-2 w-full bg-emerald-500 hover:bg-emerald-400 text-white p-2 rounded transition">
-            <i class="fa-regular fa-paper-plane"></i> Send
-          </button>
+
+        <div class="mt-4 down-container flex flex-col space-y-4">
+          <!-- Input for typing message -->
+          <div class="relative flex items-center">
+            <input type="text" id="messageInput" placeholder="Type your message..."
+              class="p-3 rounded-full bg-gray-700 placeholder-gray-500 text-white w-full max-w-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" />
+            <button id="sendButton"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-500 hover:bg-emerald-400 text-white p-4 w-12 h-12 rounded-full flex items-center justify-center transition duration-300 ease-in-out shadow-md">
+              <i class="fa-regular fa-paper-plane justify-center flex"></i>
+            </button>
+
+
+
+          </div>
+
           <!-- Button to start and stop recording -->
-          <button class="btn btn-primary mt-3 " id="recordButton"><i class="fa-solid fa-microphone"></i> Start</button>
+          <button
+            class="btn btn-primary p-3 rounded-full w-full max-w-xs shadow-lg transition duration-300 ease-in-out hover:scale-105 transform"
+            id="recordButton"><i class="fa-solid fa-microphone"></i> Start</button>
 
-          <input type="file" class="mt-2 file-input file-input-bordered w-full max-w-xs" id="fileInput" accept="image/*"
-            placeholder="Select a File under 800 KB" />
-
-          <button class="btn btn-neutral mt-1" id="sendFileButton">Send File</button>
-
+          <!-- File Input for image -->
+          <div class="flex items-center space-x-2">
+            <input type="file"
+              class="file-input file-input-bordered w-full max-w-xs rounded-full focus:ring-2 focus:ring-emerald-500"
+              id="fileInput" accept="image/*" placeholder="Select a File under 800 KB" />
+            <button
+              class="btn btn-neutral p-3 rounded-full shadow-lg hover:bg-neutral-600 transition duration-300 ease-in-out"
+              id="sendFileButton">Send File</button>
+          </div>
         </div>
+
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
+        <!-- aaaaaaaaaaaaaaaaaaa -->
         <div class="text-center">
           <h2 class="mb-2">Online Users:</h2>
           <div id="onlineUsersContainer" class="bg-indigo-400 text-center rounded-3xl text-black"></div>
