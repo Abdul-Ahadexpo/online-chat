@@ -171,33 +171,71 @@ function displayAudioMessage(data) {
   messageContainer.appendChild(messageDiv);
 }
 
+
+
+
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
 function displayFileMessage(data) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
 
+  const fileName = data.fileName || "Download";
+  const time = data.time || new Date().toLocaleTimeString();
+
   if (data.fileType.startsWith("image/")) {
     messageDiv.innerHTML = `
       <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
-     <img src="${
-       data.fileData
-     }" alt="Image" class="rounded-xl shadow-lg object-contain max-w-full max-h-[500px]" style="max-width: 100%; max-height: 500px;">
-
-      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
-        data.time || new Date().toLocaleTimeString()
-      }</i>
+      <a href="${data.fileData}" download="${fileName}" class="flex items-center">
+        <img src="${data.fileData}" alt="Image" 
+          class="rounded-xl shadow-lg object-contain max-w-full max-h-[500px]" 
+          style="max-width: 100%; max-height: 500px;">
+      </a>
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${time}</i>
     `;
   } else if (data.fileType.startsWith("video/")) {
     messageDiv.innerHTML = `
       <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
-      <video controls style="max-width: 200px; max-height: 200px;">
-        <source src="${data.fileData}" type="${data.fileType}">
-        Your browser does not support the video tag.
-      </video>
-      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${
-        data.time || new Date().toLocaleTimeString()
-      }</i>
+      <a href="${data.fileData}" download="${fileName}" class="flex items-center">
+        <video controls style="max-width: 200px; max-height: 200px;">
+          <source src="${data.fileData}" type="${data.fileType}">
+          Your browser does not support the video tag.
+        </video>
+      </a>
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${time}</i>
+    `;
+  } else {
+    // Handle other file types (downloadable with Font Awesome icons)
+    messageDiv.innerHTML = `
+      <b><i style="color: ${data.color};">${data.sender}</i></b>: <br/>
+      <a href="${data.fileData}" download="${fileName}" class="flex items-center text-blue-500 hover:underline">
+        <i class="fa-solid fa-file-download mr-2"></i> ${fileName}
+      </a>
+      <i class="absolute bottom-0 right-0 text-[10px] text-lime-200 time">${time}</i>
     `;
   }
+
+  messageContainer.appendChild(messageDiv);
+}
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+// ;;
+
+
+
 
   messageContainer.appendChild(messageDiv);
 }
