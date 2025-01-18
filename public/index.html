@@ -49,7 +49,7 @@
     }
 
     .message {
-   background-color: #4d738f;
+      background-color: #4d738f;
       padding: 10px;
       margin: 5px 0;
       position: relative;
@@ -101,66 +101,68 @@
 
 
 
-/* Link */
-/* Style clickable links inside messages */
-.message-link {
-  color: #1e90ff; /* Vibrant blue text for links */
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease-in-out;
-}
+    /* Link */
+    /* Style clickable links inside messages */
+    .message-link {
+      color: #1e90ff;
+      /* Vibrant blue text for links */
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease-in-out;
+    }
 
-/* Hover effect for links */
-.message-link:hover {
-  text-decoration: underline;
-  color: #63b3ff;
-}
+    /* Hover effect for links */
+    .message-link:hover {
+      text-decoration: underline;
+      color: #63b3ff;
+    }
 
 
-/* Message component */
-.message {
-  cursor: pointer;
-  background: linear-gradient(135deg, #2c2f3e, #1f2129);
-  color: #f0f0f0;
-  border-radius: 12px;
-  display: block;
-  max-width: 98%;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  word-wrap: break-word;
-  position: relative;
-  font-weight: 500;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
-  line-height: 1.4;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
+    /* Message component */
+    .message {
+      cursor: pointer;
+      background: linear-gradient(135deg, #2c2f3e, #1f2129);
+      color: #f0f0f0;
+      border-radius: 12px;
+      display: block;
+      max-width: 98%;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      word-wrap: break-word;
+      position: relative;
+      font-weight: 500;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+      line-height: 1.4;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
 
-/* Hover effect */
-.message:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(135deg, #1f2129, #2c2f3e);
-}
+    /* Hover effect */
+    .message:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(135deg, #1f2129, #2c2f3e);
+    }
 
-/* Subtle animation */
-.message {
-  animation: fadeIn 0.8s ease-in-out;
-}
+    /* Subtle animation */
+    .message {
+      animation: fadeIn 0.8s ease-in-out;
+    }
 
-/* Keyframes for Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    /* Keyframes for Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
 
 
@@ -338,15 +340,15 @@
 
 
 
-  
-  
 
-  
+  <!-- ddddddddddddddddddddddddddddddddd -->
+
+  <!-- ddddddddddddddddddddddddddddddddd -->
+
+  <!-- ddddddddddddddddddddddddddddddddd -->
 
 
-  
 
-  
   <script>
     // Function to open the modal
     function openProfileModal() {
@@ -388,8 +390,20 @@
       }
     };
   </script>
+
+
+
+  <!-- ddddddddddddddddddddddddddddddddd -->
+
+  <!-- ddddddddddddddddddddddddddddddddd -->
+
+  <!-- ddddddddddddddddddddddddddddddddd -->
+
+
+
+
   <!-- eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
-  <div id="whole-container" class="container bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+  <div id="whole-container" class="container bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-lg scale-x-105">
 
     <h1 class="text-2xl font-bold text-emerald-400 flex justify-between items-center">
       Doro Chat
@@ -428,11 +442,11 @@
         </div>
         <!-- Online Users Section -->
         <div id="onlineUsersDisplay" class="hidden">Online Users: 0</div> <!-- New element to display total users -->
-       
 
-<div class="message-container mt-4 max-h-[30rem] overflow-auto border border-gray-600 rounded p-2"
+
+        <div class="message-container mt-4 max-h-[30rem] overflow-auto border border-gray-600 rounded p-2"
           id="messageContainer"></div>
-    
+
 
         <!-- aaaaaaaaaaaaaaaaaaa -->
         <!-- aaaaaaaaaaaaaaaaaaa -->
@@ -471,7 +485,7 @@
           <div class="flex items-center space-x-2">
             <input type="file"
               class="file-input file-input-bordered w-full max-w-xs rounded-full focus:ring-2 focus:ring-emerald-500"
-              id="fileInput" accept="image/*" placeholder="Select a File under 800 KB" />
+              id="fileInput" placeholder="Select a File under 800 KB" />
             <button
               class="btn btn-neutral p-3 rounded-full shadow-lg hover:bg-neutral-600 transition duration-300 ease-in-out"
               id="sendFileButton">Send File</button>
