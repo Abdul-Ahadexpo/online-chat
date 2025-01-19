@@ -8,3 +8,9 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background-image: url("./img/appt.jpg");
+  background-repeat: repeat;
+}
