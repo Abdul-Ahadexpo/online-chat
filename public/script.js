@@ -396,7 +396,7 @@ if (file) {
     });
     return;
   }
-}
+
 
 
     const reader = new FileReader();
