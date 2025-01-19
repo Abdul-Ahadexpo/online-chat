@@ -375,13 +375,29 @@ function sendAudioMessage(base64Audio) {
 sendFileButton.addEventListener("click", () => {
   const file = fileInput.files[0];
 
-  // Check if a file is selected and its size is under 800 KB
-  if (file) {
-    if (file.size > 800 * 1024) {
-      alert("Please select a file smaller than 800 KB.");
-      fileInput.value = ""; // Clear input if size exceeds limit
-      return;
-    }
+// Check if a file is selected and its size is under 800 KB
+if (file) {
+  if (file.size > 800 * 1024) {
+    Swal.fire({
+      title: "File too large",
+      text: "Please select a file smaller than 800 KB.",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancel",
+      confirmButtonText: "Compress Image",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the image compression page
+        window.location.href = "https://doro-press-image-compress.vercel.app/";
+      } else {
+        // Clear the file input if user cancels
+        fileInput.value = "";
+      }
+    });
+    return;
+  }
+}
+
 
     const reader = new FileReader();
     reader.onload = () => {
