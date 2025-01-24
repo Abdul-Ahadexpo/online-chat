@@ -79,10 +79,26 @@ roomButton.addEventListener("click", () => {
 
 // (Rest of the script.js remains unchanged)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function loadMessages() {
   const messages = JSON.parse(localStorage.getItem("messages")) || [];
+  const displayedMessages = new Set();
+
   messages.forEach((msg) => {
-    if (msg.room === currentRoom) {
+    if (msg.room === currentRoom && !displayedMessages.has(msg.time + msg.sender)) {
       if (msg.audio) {
         displayAudioMessage(msg);
       } else if (msg.fileData) {
@@ -90,10 +106,26 @@ function loadMessages() {
       } else {
         displayMessage(msg);
       }
+      displayedMessages.add(msg.time + msg.sender);
     }
   });
   scrollToBottom(); // Ensure the latest messages are visible
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function scrollToBottom() {
   messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
