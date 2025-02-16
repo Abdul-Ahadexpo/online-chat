@@ -484,34 +484,38 @@
 
 
 
-          <div class="justify-between flex">
-            <!-- Button to start and stop recording -->
-            <button
-              class="btn btn-primary p-3 rounded-full w-full max-w-xs shadow-lg transition duration-300 ease-in-out hover:scale-105 transform"
-              id="recordButton"><i class="fa-solid fa-microphone"></i> Start</button>
+        <div class="flex justify-between items-center flex-wrap md:flex-nowrap">
+  <!-- Button to start and stop recording -->
+  <button
+    class="btn btn-primary p-3 rounded-full w-full max-w-xs shadow-lg transition duration-300 ease-in-out hover:scale-105 transform"
+    id="recordButton">
+    <i class="fa-solid fa-microphone"></i> Start
+  </button>
 
-                  <!-- Button to clear chat -->
-            <button id="clearChatButton"
-              class="btn btn-outline p-3 rounded-full w-fit shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:bg-red-500 hover:text-white transform bg-red-400 text-white">
-              Clear Chat
-            </button>
-            <script>
-              document.getElementById("clearChatButton").addEventListener("click", function () {
-                localStorage.removeItem("messages"); // Clears only the messages
+  <!-- Button to clear chat -->
+  <button id="clearChatButton"
+    class="btn btn-outline p-3 rounded-full w-fit shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:bg-red-500 hover:text-white transform bg-red-400 text-white mt-4 md:mt-0">
+    Clear Chat
+  </button>
+</div>
 
-                // Show SweetAlert confirmation
-                Swal.fire({
-                  title: "Chat Cleared!",
-                  text: "All chat messages have been removed.",
-                  icon: "success",
-                  confirmButtonText: "OK",
-                  allowOutsideClick: false,
-                }).then(() => {
-                  location.reload(); // Reloads the page after clicking "OK"
-                });
-              });
-            </script>
-          </div>
+<script>
+  document.getElementById("clearChatButton").addEventListener("click", function () {
+    localStorage.removeItem("messages"); // Clears only the messages
+
+    // Show SweetAlert confirmation
+    Swal.fire({
+      title: "Chat Cleared!",
+      text: "All chat messages have been removed.",
+      icon: "success",
+      confirmButtonText: "OK",
+      allowOutsideClick: false,
+    }).then(() => {
+      location.reload(); // Reloads the page after clicking "OK"
+    });
+  });
+</script>
+
 
 
 
